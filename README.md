@@ -18,11 +18,17 @@ inspeccionar y modificar datos de entrada y salida sin cambiar su interfaz. El m
 encadenado, por lo que cada uno invoca al siguiente y sólo el último de la cadena ejecuta la lógica
 central. El encadenamiento tiene como objetivo mantener el middleware pequeño y de un solo
 propósito.
-### ¿Qué pasa si omite el middleware de Rack y se pasa la solicitud al enrutador directamente
-(Rails.application.routes.call(request))? 
+### Pregunta 
+¿Qué pasa si omite el middleware de Rack y se pasa la solicitud al enrutador directamente (Rails.application.routes.call(request))? 
 ### Respuesta:
 Si se omite el middleware de Rack y se pasa la solicitud directamente al enrutador ``(Rails.application.routes.call(request))``, se estaría evitando el procesamiento de los middlewares en la cadena. Esto haria que los middlewares que se encargan de tareas como la autenticación o el registro no se ejecutarían.
-### ¿Qué pasa si se omitie el enrutador y llamar a una acción del controlador de inmediato (por ejemplo, PostsController.action(:index).call(request))?
+### Pregunta 
+¿Qué pasa si se omitie el enrutador y llamar a una acción del controlador de inmediato (por ejemplo, ``PostsController.action(:index).call(request))?``
+### Respuesta: 
+Si se omite el enrutador y se llama directamente a una acción del controlador ``(por ejemplo, PostsController.action(:index).call(request))``, se estaría evitando la ejecución de todo el enrutamiento de la solicitud. Esto significa que la solicitud no pasaría por el enrutador para determinar qué acción del controlador debe ejecutarse en función de la ``URL`` y los parámetros de la ``HTTP request``.
+
+En vez de eso, se estaría llamando directamente a la acción del controlador especificada. Sin embargo, esto significa que se omitirían las funcionalidades proporcionadas por el enrutador, como la generación de rutas, el manejo de parámetros y el enrutamiento basado en condiciones.
+### Pregunta 
 La gema trace_location (https://github.com/yhirano55/trace_location) es el pequeño ayudante de un
 desarrollador curioso. Su objetivo principal es aprender qué sucede detrás de escena de las API simples
 proporcionadas por librerías y frameworks. Te sorprenderá lo complejos que pueden ser los aspectos
@@ -31,3 +37,12 @@ Diseñar API simples que resuelvan problemas complejos es un verdadero dominio d
 software. En el fondo, esta joya utiliza la API TracePoint de Ruby (https://rubyapi.org/3.2/o/tracepoint),
 una poderosa herramienta de introspección en tiempo de ejecución.
 Utiliza trace_location para realizar algunos experimentos y analizar los resultados.
+### Respuesta:
+Podemos realizar un seguimiento del proceso de validación del registro:
+
+```ruby
+book = Book.new(title: "My Book Title")
+TraceLocation.trace(match: /activerecord/) { book.validate }
+```
+Y podemos observar en el ``.log`` el proceso de validacion del regtro:
+![Alt text](image.png)
