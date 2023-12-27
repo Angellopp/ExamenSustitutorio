@@ -27,7 +27,6 @@ function getCookie(name) {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
   }
   
-  // Configura tu página web
   function configurePage() {
     setCookie('miCookie', 'valor de ejemplo', 7); // Nombre de la cookie: 'miCookie', Valor: 'valor de ejemplo', Duración: 7 días
 
