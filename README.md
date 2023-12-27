@@ -125,13 +125,14 @@ primeros archivos complejos de Ruby usando Flog.
 ## Respuesta
 
 ```bash
-find . -name "*.rb" -exec flog {} + | sort -n | tail -n 4
+find . -name "*.rb" -exec flog {} + | sort --k 2 -r | head -n 4
 ```
 ```bash
 OUTPUT:
 ```
-![Alt text](image-1.png)
+![Alt text](image-19.png)
 El comando ``find`` buscará todos los archivos con extensión ".rb" en el directorio actual y sus subdirectorios, ejecutará el comando flog en cada archivo (`-exec flog {} +`) y luego ordenará los resultados según la columna de complejidad en orden descendente (`sort -k 2 -r`). Al final, mostrará los primeros 4 resultados (`head -n 4`).
+En este caso simple tenemos la complejidad de 379.1 del main y un 934.9 total segun el ordenamiento descendente de flog.
 ## Parte 3: JavaScript
 ### Pregunta1 (2 puntos)
 Crea varias funciones que te permitirán interactuar con las cookies de la página, incluida la lectura de un
