@@ -338,6 +338,38 @@ end
 
 ```
 ### 1. Ejecuta esta especificación usando el comando rspec.
+
+Completamos la clase ``tennis_test`` para convertir el lenguaje humano en lenguaje de codigo:
+
+```ruby
+RSpec.describe "TennisScorer" do
+    before(:each) do
+        @tennis_scorer = TennisScorer.new
+    end
+    describe "puntuación básica" do
+        it "empieza con un marcador de 0-0" do
+            expect(@tennis_scorer.score).to eq("0-0")
+        end
+    
+        it "hace que el marcador sea 15-0 si el sacador gana un punto" do
+            @tennis_scorer.punto(:saca)
+            expect(@tennis_scorer.score).to eq("15-0")
+        end
+    
+        it "hace que el marcador sea 0-15 si el receptor gana un punto" do
+            @tennis_scorer.punto(:recibe)
+            expect(@tennis_scorer.score).to eq("0-15")
+        end
+    
+        it "hace que el marcador sea 15-15 después de que ambos ganen un punto" do
+            @tennis_scorer.punto(:recibe)
+            @tennis_scorer.punto(:saca)
+            expect(@tennis_scorer.score).to eq("15-15")
+        end
+    end
+end
+```
+
 Ejecutamos el archivo ``tennis_test.rb`` usando ``rspec tennis_test.rb``.:
 ![Alt text](image-13.png)
 Como ya reconocio nuestro archivo de test, podemos completar nuestra clase ``TennisScorer`` de tal manera que pase todos los test:
@@ -350,3 +382,60 @@ Como ya reconocio nuestro archivo de test, podemos completar nuestra clase ``Ten
 
 ``El método score`` calcula el puntaje del juego para un jugador dado. Toma un parámetro opcional player que especifica el jugador para el cual se calculará el puntaje. Por defecto, se asume que el jugador es el que saca. El método realiza una serie de verificaciones condicionales para determinar el resultado del juego y devuelve un string que representa el puntaje resultante de acuerdo a los test que nos dan, por ejemplo hace que el marcador sea 15-0 si el sacador gana un punto.
 ``El método punto`` incrementa el puntaje del jugador especificado en 1.
+
+Al hacer el test de la clase ``TennisScorer``, podemos ver que todos los test pasaron correctamente:
+
+![Alt text](image-14.png)
+
+Ahora vamos a implementar algunos nuevos test que tambien deberia pasar:
+
+```ruby
+it "40-0 después de que el sacador gane tres puntos" do
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            expect(@tennis_scorer.score).to eq("40-0")
+          end
+          
+          it "W-L después de que el sacador gana cuatro puntos" do
+            @tennis_scorer.punto(:saca)
+            @tennis_scorer.punto(:saca)
+            @tennis_scorer.punto(:saca)
+            @tennis_scorer.punto(:saca)
+            expect(@tennis_scorer.score).to eq("W-L")
+          end
+        
+          it "L-W después de que el receptor gane cuatro puntos" do
+            @tennis_scorer.punto(:recibe)
+            @tennis_scorer.punto(:recibe)
+            @tennis_scorer.punto(:recibe)
+            expect(@tennis_scorer.score).to eq("0-40")
+          end
+          
+          it "Deuce después de cada uno gana tres puntos" do
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:recibe)
+            @tennis_scorer.punto(:recibe)
+            @tennis_scorer.punto(:recibe)
+            expect(@tennis_scorer.score).to eq("DEUCE")
+          end
+          
+          it "El sacador con ventaja después de cada uno gana tres puntos y el sacador obtiene uno más" do
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:saca) 
+            @tennis_scorer.punto(:recibe) 
+            @tennis_scorer.punto(:recibe) 
+            @tennis_scorer.punto(:recibe) 
+            @tennis_scorer.punto(:saca)
+            expect(@tennis_scorer.score).to eq("El sacador tiene ventaja")
+          end
+    end
+```
+
+Y vemos como con la logica implementada tambien logran pasar estos test:
+
+![Alt text](image-17.png)
+
