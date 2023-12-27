@@ -1,3 +1,69 @@
+# Parte 1: Parte 1: El ciclo de prueba de aceptación- prueba unitaria
+Ejecutamos ``bundle install --without production`` para asegurar que las gemas sean instaladas.
+Tambien ejecutamos la migracion y el cargamos los datos de la `seed`:
+![Alt text](image-6.png)
+Y vemos que nuestra web funciona:
+![Alt text](image-7.png)
+## Agrega un campo Director a Movies (1 punto)
+Crea y aplica una migración que agregue el campo director a la tabla de películas. El campo director
+debe ser una cadena que contenga el nombre del director de la película
+Ejecutamos ``bundle exec cucumber`` y vemos que nos aparece en la consola los test que debemos completar:
+![Alt text](image-8.png)
+## Agregamos la columna usando ActiveRecord:
+Agregaremos la columna Director a nuestra migración usando ``add_column`` de ActiveRecord::Migration usando `bundle exec rails generate migration AddDirectorToMovies director:string`:
+![Alt text](image-9.png)
+Y hacemos la migracion:
+![Alt text](image-10.png)
+Ahora necesitamos modificar nuestras vistas para que se aprecie la nueva columna que hemos creado con la migracion:
+
+Modificamos nuestro `index.html.erb`:
+```erb
+<!--  This file is app/views/movies/index.html.erb -->
+<h2>All Movies</h2>
+
+<%#  Part 2: Start here... %>
+
+<table class="table table-striped col-md-12" id="movies">
+  <thead>
+    <tr>
+      <th>Movie Title</th>
+      <th>Director</th>
+      <th>Rating</th>
+      <th>Release Date</th>
+      <th>More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td>
+          <%= movie.title %>
+        </td>
+        <td>
+          <%= movie.director %>
+        </td>
+        <td>
+          <%= movie.rating %>
+        </td>
+        <td>
+          <%= movie.release_date %>
+        </td>
+        <td>
+          <%= link_to "More about #{movie.title}", movie_path(movie) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-primary' %>
+
+```
+Y podemos ver la nueva columna creada:
+![Alt text](image-11.png)
+Y tambien los test pasados por `cucumber`:
+![Alt text](image-12.png)
+
+
 # Parte 2: Ruby on Rails
 ## Pregunta 1 (1 punto)
 ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa
