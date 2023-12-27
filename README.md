@@ -224,8 +224,8 @@ Agregar un detector de eventos para enviar y capturar el clic
             }
         });
 ```
+ Si alguno de estos requisitos no se cumple, se llama a la función handleError para mostrar el mensaje de error correspondiente. Finalmente, se verifica si hay algún error antes de enviar el formulario y, si no hay errores, se crea un objeto ``formData`` que contiene los valores de las entradas del formulario y se muestra en la consola.
 ### Ejemplo de error:
-
 ![Alt text](image-4.png)
 ### Ejemplo correcto:
 ![Alt text](image-5.png)
