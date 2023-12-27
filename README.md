@@ -11,7 +11,7 @@ La autenticación y la autorización son dos conceptos diferentes pero relaciona
 
 La autenticación se refiere al proceso de verificar la identidad de un usuario. Se utiliza para confirmar que un usuario es quien dice ser. Esto generalmente se logra mediante la presentación de credenciales, como un nombre de usuario y una contraseña.
 
-La autorización, por otro lado, se refiere a los permisos y privilegios que se le otorgan a un usuario una vez que se ha autenticado. La autorización determina qué acciones o recursos puede acceder un usuario específico. Por ejemplo, un usuario autenticado puede tener permisos para leer, escribir o eliminar ciertos datos o para acceder a ciertas áreas de una aplicación. La autorización se utiliza para controlar y limitar el acceso a recursos protegidos y garantizar la seguridad y la privacidad de la información.
+La autorización se refiere a los permisos y privilegios que se le otorgan a un usuario una vez que ya esta autenticado. La autorización determina qué es lo que puede y no acceder un usuario específico. Por ejemplo, un usuario autenticado puede tener permisos para leer, escribir o eliminar ciertos datos o para acceder a ciertas áreas de una aplicación.
 ## Pregunta 3 (2 puntos)
 Un middleware es un componente que envuelve la ejecución de una unidad central (función) y puede
 inspeccionar y modificar datos de entrada y salida sin cambiar su interfaz. El middleware suele estar
