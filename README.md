@@ -1,4 +1,4 @@
-# Parte 1: Parte 1: El ciclo de prueba de aceptación- prueba unitaria
+# Parte 1: El ciclo de prueba de aceptación- prueba unitaria
 Ejecutamos ``bundle install --without production`` para asegurar que las gemas sean instaladas.
 Tambien ejecutamos la migracion y el cargamos los datos de la `seed`:
 ![Alt text](image-6.png)
@@ -10,13 +10,18 @@ debe ser una cadena que contenga el nombre del director de la película
 Ejecutamos ``bundle exec cucumber`` y vemos que nos aparece en la consola los test que debemos completar:
 ![Alt text](image-8.png)
 ## Agregamos la columna usando ActiveRecord:
-Agregaremos la columna Director a nuestra migración usando ``add_column`` de ActiveRecord::Migration usando `bundle exec rails generate migration AddDirectorToMovies director:string`:
+Agregaremos la columna Director a nuestra migración usando ``add_column`` de ActiveRecord::Migration creando la migracion usando el siguiente comando `bundle exec rails generate migration AddDirectorToMovies director:string`:
 ![Alt text](image-9.png)
-Y hacemos la migracion:
+Y ejecutamon la migracion:
 ![Alt text](image-10.png)
-Ahora necesitamos modificar nuestras vistas para que se aprecie la nueva columna que hemos creado con la migracion:
 
-Modificamos nuestro `index.html.erb`:
+## Pregunta:
+Claramente, ahora que se ha agregado un nuevo campo, tendrás que modificar las Vistas para
+que el usuario pueda ver e ingresar valores para ese campo. ¿También tienes que modificar el
+archivo del modelo para que "se note" el nuevo campo? . Muestra con ejemplos tu respuesta
+## Respuesta
+Ahora necesitamos modificar nuestras vistas para que se vea la nueva columna que hemos creado con la migracion:
+Modificamos nuestro `index.html.erb` añadiendo el campo ``Director`` que falta a la plantilla:
 ```erb
 <!--  This file is app/views/movies/index.html.erb -->
 <h2>All Movies</h2>
@@ -63,6 +68,7 @@ Y podemos ver la nueva columna creada:
 Y tambien los test pasados por `cucumber`:
 ![Alt text](image-12.png)
 
+Tambien tenemos que modificar al momento 
 
 # Parte 2: Ruby on Rails
 ## Pregunta 1 (1 punto)
@@ -125,7 +131,7 @@ find . -name "*.rb" -exec flog {} + | sort -n | tail -n 4
 OUTPUT:
 ```
 ![Alt text](image-1.png)
-
+El comando ``find`` buscará todos los archivos con extensión ".rb" en el directorio actual y sus subdirectorios, ejecutará el comando flog en cada archivo (`-exec flog {} +`) y luego ordenará los resultados según la columna de complejidad en orden descendente (`sort -k 2 -r`). Al final, mostrará los primeros 4 resultados (`head -n 4`).
 ## Parte 3: JavaScript
 ### Pregunta1 (2 puntos)
 Crea varias funciones que te permitirán interactuar con las cookies de la página, incluida la lectura de un
@@ -253,44 +259,51 @@ Agregar un detector de eventos para enviar y capturar el clic
 ```javascript
         form.addEventListener('submit', function (event) {
             event.preventDefault(); // Evitar la acción predeterminada del formulario
-
-            // Recorrer todos los elementos de la página con la clase "error" y agregar la clase "ocultar"
+```
+Recorrer todos los elementos de la página con la clase "error" y agregar la clase "ocultar"
+```javascript
             errorElements.forEach(function (element) {
                 element.classList.add('ocultar');
             });
-
-            // Utilizar una expresión regular para validar el formato del correo electrónico
+```
+Utilizar una expresión regular para validar el formato del correo electrónico
+```javascript
             const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             const emailValue = emailInput.value;
-
-            // Validar el campo de correo electrónico
+```
+Validar el campo de correo electrónico
+```javascript
             if (!emailRegex.test(emailValue)) {
                 handleError(emailInput, 'El correo electrónico no es válido');
             }
-
-            // Validar el campo de contraseña
+```
+Validar el campo de contraseña
+```javascript
             const passwordValue = passwordInput.value;
             const passwordRegex = /^[a-zA-Z0-9]+$/;
 
             if (!passwordRegex.test(passwordValue) || passwordValue.length < 3 || passwordValue.length > 8) {
                 handleError(passwordInput, 'La contraseña debe contener solo letras y números y tener entre 3 y 8 caracteres');
             }
-
-            // Verificar si hay errores antes de enviar el formulario
+```
+Verificar si hay errores antes de enviar el formulario
+```javascript
             if (!document.querySelector('.error:not(.ocultar)')) {
                 const formData = {};
-
-                // Agregar valores al objeto formData recorriendo todas las entradas
+```
+Agregar valores al objeto formData recorriendo todas las entradas
+```javascript
                 formData.email = emailValue;
                 formData.password = passwordValue;
                 formData.userName = userNameInput.value;
-
-                // Enviar el objeto formData
+```
+Enviar el objeto formData
+```javascript
                 console.log('Datos del formulario:', formData);
             }
         });
 ```
- Si alguno de estos requisitos no se cumple, se llama a la función handleError para mostrar el mensaje de error correspondiente. Finalmente, se verifica si hay algún error antes de enviar el formulario y, si no hay errores, se crea un objeto ``formData`` que contiene los valores de las entradas del formulario y se muestra en la consola.
+Si alguno de estos requisitos no se cumple, se llama a la función handleError para mostrar el mensaje de error correspondiente. Finalmente, se verifica si hay algún error antes de enviar el formulario y, si no hay errores, se crea un objeto ``formData`` que contiene los valores de las entradas del formulario y se muestra en la consola.
 ### Ejemplo de error:
 ![Alt text](image-4.png)
 ### Ejemplo correcto:
