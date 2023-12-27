@@ -127,3 +127,105 @@ Vamos a usar un ejemplo muy simple con el siguiente codigo:
 ```
 y podemos comprobar nuestra creacion de coockies y nuestro ``docuemnt.cookie``:
 ![Alt text](image-3.png)
+## Pregunta 2 (1 punto)
+Este ejercicio es un ejemplo de una estructura de formulario típica en la que se verifican los valores
+ingresados en el formulario y se validan antes de enviar el contenido. Se devuelve una respuesta al
+usuario si los valores no cumplen con los criterios de validación en el código. Utiliza el siguiente HTML y
+CSS como plantilla inicial:
+```html
+<!doctype html>
+<html>
+
+<head>
+    <title>Curso CC-3S2</title>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+            font-family: sans-serif;
+            font-style: italic;
+        }
+
+        input {
+            border-color: #ddd;
+            width: 400px;
+            display: block;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myform">
+        Email:
+        <input type="text" name="email"> <span class="error"></span>
+        <br> Password:
+        <input type="password" name="password"> <span class="error"></span>
+        <br> User Nombre:
+        <input type="text" name="userName"> <span class="error"></span>
+        <br>
+        <input type="submit" value="Sign Up">
+    </form>
+    <script>
+    </script>
+</body>
+</html>
+```
+Seleccionar todos los elementos de la página y configurarlos como objetos JavaScript:
+```javascript
+        const form = document.querySelector('form[name="myform"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const passwordInput = document.querySelector('input[name="password"]');
+        const userNameInput = document.querySelector('input[name="userName"]');
+        const errorElements = document.querySelectorAll('.error');
+```
+Agregar un detector de eventos para enviar y capturar el clic
+```javascript
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar la acción predeterminada del formulario
+
+            // Recorrer todos los elementos de la página con la clase "error" y agregar la clase "ocultar"
+            errorElements.forEach(function (element) {
+                element.classList.add('ocultar');
+            });
+
+            // Utilizar una expresión regular para validar el formato del correo electrónico
+            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const emailValue = emailInput.value;
+
+            // Validar el campo de correo electrónico
+            if (!emailRegex.test(emailValue)) {
+                handleError(emailInput, 'El correo electrónico no es válido');
+            }
+
+            // Validar el campo de contraseña
+            const passwordValue = passwordInput.value;
+            const passwordRegex = /^[a-zA-Z0-9]+$/;
+
+            if (!passwordRegex.test(passwordValue) || passwordValue.length < 3 || passwordValue.length > 8) {
+                handleError(passwordInput, 'La contraseña debe contener solo letras y números y tener entre 3 y 8 caracteres');
+            }
+
+            // Verificar si hay errores antes de enviar el formulario
+            if (!document.querySelector('.error:not(.ocultar)')) {
+                const formData = {};
+
+                // Agregar valores al objeto formData recorriendo todas las entradas
+                formData.email = emailValue;
+                formData.password = passwordValue;
+                formData.userName = userNameInput.value;
+
+                // Enviar el objeto formData
+                console.log('Datos del formulario:', formData);
+            }
+        });
+```
+### Ejemplo de error:
+
+![Alt text](image-4.png)
+### Ejemplo correcto:
+![Alt text](image-5.png)
