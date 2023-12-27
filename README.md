@@ -197,6 +197,15 @@ Vamos a usar un ejemplo muy simple con el siguiente codigo:
 </body>
 </html>
 ```
+
+El código proporciona una funcionalidad básica para trabajar con cookies en una página web utilizando ``JavaScript``:
+
+``getCookie(name):`` Busca una cookie específica por su nombre en la cadena ``document.cookie``. Si encuentra la cookie, devuelve su valor; de lo contrario, devuelve una cadena vacía.
+
+``setCookie(name, value, days):`` Esta función crea una nueva cookie con un nombre, un valor y una duración específica en días. Establece la cookie en el navegador asignando una cadena formateada adecuadamente a ``document.cookie.``
+
+``deleteCookie(name):`` Esta función elimina una cookie específica por su nombre. Establece la cookie en blanco y le asigna una fecha de expiración en el pasado para que el navegador la elimine.
+
 y podemos comprobar nuestra creacion de coockies y nuestro ``docuemnt.cookie``:
 ![Alt text](image-3.png)
 ## Pregunta 2 (1 punto)
