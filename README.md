@@ -140,7 +140,7 @@ una cantidad determinada de días, y la eliminación de una cookie.
 Configura tu página web y, en el código JavaScript, genera el valor de documento.cookie que debería
 estar en blanco. Intenta eliminar un cookie por su nombre.
 ### Respuesta
-Vamos a usar un ejemplo muy simple con el siguiente codigo:
+Vamos a usar un ejemplo muy simple con el siguiente codigo para ver las funcionalidades que se nos pide:
 
 ```html
 <!DOCTYPE html>
@@ -313,7 +313,40 @@ Enviar el objeto formData
         });
 ```
 Si alguno de estos requisitos no se cumple, se llama a la función handleError para mostrar el mensaje de error correspondiente. Finalmente, se verifica si hay algún error antes de enviar el formulario y, si no hay errores, se crea un objeto ``formData`` que contiene los valores de las entradas del formulario y se muestra en la consola.
-### Ejemplo de error:
+### Ejemplo de error 
+Con un email inválido:
 ![Alt text](image-4.png)
-### Ejemplo correcto:
+### Ejemplo correcto
+Con todos los valores válidos
 ![Alt text](image-5.png)
+
+## Parte 4: Pruebas y Rspec (3 puntos)
+Aqui vamos a generar un nuevo proyecto `tennis` usando ``rails new tennis``; para probar nuestros test y lograr pasarlos, tambien la gema ``rspec-rails`` al Gemfile.
+
+Usamos el comando ``rails generate rspec:install`` para crear nuestra carpeta con los test.
+Nos piden agregar la clase ``TennisScorer`` para usarla en los test:
+
+```ruby
+RSpec.describe "TennisScorer" do
+ describe "puntuación básica" do
+ it “empieza con un marcador de 0-0"
+ it “ hace que el marcador sea 15-0 si el sacador gana un punto"
+ it "hace que el marcador sea 0-15 si el receptor gana un punto"
+ it "hace que el marcador sea 15-15 después de que ambos ganen un punto"
+ end
+end
+
+```
+### 1. Ejecuta esta especificación usando el comando rspec.
+Ejecutamos el archivo ``tennis_test.rb`` usando ``rspec tennis_test.rb``.:
+![Alt text](image-13.png)
+Como ya reconocio nuestro archivo de test, podemos completar nuestra clase ``TennisScorer`` de tal manera que pase todos los test:
+
+``SIGTE_PUNTO`` es un hash que mapea los valores del puntaje actual a su representación en el juego de tenis. Por ejemplo, SIGTE_PUNTO[0] devuelve 0, SIGTE_PUNTO[1] devuelve 15, y así sucesivamente.
+
+``OTRO_JUGADOR`` es un hash que mapea el jugador actual al otro jugador. Por ejemplo, OTRO_JUGADOR[:saca] devuelve :recibe, y viceversa.
+
+``El método initialize ``inicializa el marcador con un puntaje de 0 para ambos jugadores.
+
+``El método score`` calcula el puntaje del juego para un jugador dado. Toma un parámetro opcional player que especifica el jugador para el cual se calculará el puntaje. Por defecto, se asume que el jugador es el que saca. El método realiza una serie de verificaciones condicionales para determinar el resultado del juego y devuelve un string que representa el puntaje resultante de acuerdo a los test que nos dan, por ejemplo hace que el marcador sea 15-0 si el sacador gana un punto.
+``El método punto`` incrementa el puntaje del jugador especificado en 1.
