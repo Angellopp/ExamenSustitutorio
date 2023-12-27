@@ -46,3 +46,84 @@ TraceLocation.trace(match: /activerecord/) { book.validate }
 ```
 Y podemos observar en el ``.log`` el proceso de validacion del regtro:
 ![Alt text](image.png)
+
+## Pregunta 4 (2 punto)
+Prepara un one-liner (https://linuxcommandlibrary.com/basic/oneliners) de Unix para mostrar los N
+primeros archivos complejos de Ruby usando Flog. 
+## Respuesta
+
+```bash
+find . -name "*.rb" -exec flog {} + | sort -n | tail -n 4
+```
+```bash
+OUTPUT:
+```
+![Alt text](image-1.png)
+
+## Parte 3: JavaScript
+### Pregunta1 (2 puntos)
+Crea varias funciones que te permitirán interactuar con las cookies de la página, incluida la lectura de un
+valor de cookie por nombre, la creación de una nueva cookie usando un nombre y su configuración para
+una cantidad determinada de días, y la eliminación de una cookie.
+Configura tu página web y, en el código JavaScript, genera el valor de documento.cookie que debería
+estar en blanco. Intenta eliminar un cookie por su nombre.
+### Respuesta
+Vamos a usar un ejemplo muy simple con el siguiente codigo:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prueba de Cookies</title>
+  <script>
+    function getCookie(name) {
+    const cookieName = `${name}=`;
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+  
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) === ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(cookieName) === 0) {
+        return cookie.substring(cookieName.length, cookie.length);
+      }
+    }
+  
+    return '';
+  }
+  
+  function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value};${expires};path=/`;
+  }
+  
+  function deleteCookie(name) {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+  }
+  
+
+    function configurePage() {
+
+      setCookie('miCookie', 'valor de ejemplo', 7); // Nombre de la cookie: 'miCookie', Valor: 'valor de ejemplo', Duración: 7 días
+
+      const cookieValue = getCookie('miCookie');
+      console.log('Valor de la cookie:', cookieValue);
+
+      deleteCookie('miCookie');
+      console.log('Cookie eliminada');
+    }
+    console.log(document.cookie);
+    configurePage();
+  </script>
+</head>
+<body>
+  <h1>Prueba de Cookies</h1>
+</body>
+</html>
+```
+y podemos comprobar nuestra creacion de coockies y nuestro ``docuemnt.cookie``:
+![Alt text](image-3.png)
