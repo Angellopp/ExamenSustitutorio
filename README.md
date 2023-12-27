@@ -7,26 +7,21 @@ Los formularios son una parte integral de la interfaz de usuario y están direct
 ## Pregunta 2 (1 punto)
 ¿Cuál es la diferencia entre autenticación y autorización?
 ## Respuesta:
-La autenticación y la autorización son dos conceptos diferentes pero relacionados en el concepto de la seguridad informática:
+La ``autenticación`` y la ``autorización`` son dos conceptos diferentes pero relacionados en el concepto de la seguridad informática:
 
-La autenticación se refiere al proceso de verificar la identidad de un usuario. Se utiliza para confirmar que un usuario es quien dice ser. Esto generalmente se logra mediante la presentación de credenciales, como un nombre de usuario y una contraseña.
+La ``autenticación`` se refiere al proceso de verificar la identidad de un usuario. Se utiliza para confirmar que un usuario es quien dice ser. Esto generalmente se logra mediante la presentación de credenciales, como un nombre de usuario y una contraseña.
 
-La autorización se refiere a los permisos y privilegios que se le otorgan a un usuario una vez que ya esta autenticado. La autorización determina qué es lo que puede y no acceder un usuario específico. Por ejemplo, un usuario autenticado puede tener permisos para leer, escribir o eliminar ciertos datos o para acceder a ciertas áreas de una aplicación.
+La ``autorización`` se refiere a los permisos y privilegios que se le otorgan a un usuario una vez que ya esta autenticado. La autorización determina qué es lo que puede y no acceder un usuario específico. Por ejemplo, un usuario autenticado puede tener permisos para leer, escribir o eliminar ciertos datos o para acceder a ciertas áreas de una aplicación.
 ## Pregunta 3 (2 puntos)
 Un middleware es un componente que envuelve la ejecución de una unidad central (función) y puede
 inspeccionar y modificar datos de entrada y salida sin cambiar su interfaz. El middleware suele estar
 encadenado, por lo que cada uno invoca al siguiente y sólo el último de la cadena ejecuta la lógica
 central. El encadenamiento tiene como objetivo mantener el middleware pequeño y de un solo
 propósito.
-Un caso de uso típico del middleware es agregar registro, instrumentación o autenticación. El patrón es
-popular en la comunidad Ruby y, aparte de Rack, lo utilizan Sidekiq, Faraday, AnyCable, etc. En el mundo
-que no es Ruby, el ejemplo más popular sería Express.js.
-Rails incluye más de 20 middlewares por defecto. Puedes ver la pila de middleware ejecutando el
-comando bin/rails middleware:
-Aprendimos que manejar una solicitud web implica miles de llamadas a métodos y objetos Ruby
-asignados. 
 ### ¿Qué pasa si omite el middleware de Rack y se pasa la solicitud al enrutador directamente
 (Rails.application.routes.call(request))? 
+### Respuesta:
+Si se omite el middleware de Rack y se pasa la solicitud directamente al enrutador ``(Rails.application.routes.call(request))``, se estaría evitando el procesamiento de los middlewares en la cadena. Esto haria que los middlewares que se encargan de tareas como la autenticación o el registro no se ejecutarían.
 ### ¿Qué pasa si se omitie el enrutador y llamar a una acción del controlador de inmediato (por ejemplo, PostsController.action(:index).call(request))?
 La gema trace_location (https://github.com/yhirano55/trace_location) es el pequeño ayudante de un
 desarrollador curioso. Su objetivo principal es aprender qué sucede detrás de escena de las API simples
