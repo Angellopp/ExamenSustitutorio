@@ -68,7 +68,9 @@ Y podemos ver la nueva columna creada:
 Y tambien los test pasados por `cucumber`:
 ![Alt text](image-12.png)
 
-Tambien tenemos que modificar al momento 
+Tambien tenemos que modificar al momento acceder a los detalles de una película:
+
+![Alt text](image-20.png)
 
 # Parte 2: Ruby on Rails
 ## Pregunta 1 (1 punto)
@@ -343,6 +345,7 @@ end
 Completamos la clase ``tennis_test`` para convertir el lenguaje humano en lenguaje de codigo:
 
 ```ruby
+require_relative "TennisScorer"
 RSpec.describe "TennisScorer" do
     before(:each) do
         @tennis_scorer = TennisScorer.new
