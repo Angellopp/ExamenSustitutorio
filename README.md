@@ -68,9 +68,10 @@ Y podemos ver la nueva columna creada:
 Y tambien los test pasados por `cucumber`:
 ![Alt text](image-12.png)
 
-Tambien tenemos que modificar al momento acceder a los detalles de una película:
+Tambien tenemos que modificar las vistas al momento acceder a los detalles de una película:
 
 ![Alt text](image-20.png)
+
 
 # Parte 2: Ruby on Rails
 ## Pregunta 1 (1 punto)
